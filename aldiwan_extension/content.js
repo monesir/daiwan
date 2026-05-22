@@ -432,8 +432,25 @@
             setTimeout(() => { customMenu.remove(); }, 1200);
         };
 
+        // Dictionary Option
+        const dictItem = document.createElement('div');
+        dictItem.innerHTML = '<i class="fas fa-book" style="margin-left: 8px;"></i> البحث في المعجم';
+        dictItem.style.cssText = quoteItem.style.cssText;
+        dictItem.onmouseover = () => dictItem.style.background = 'var(--bg-hover, #3e3833)';
+        dictItem.onmouseout = () => dictItem.style.background = 'transparent';
+        dictItem.onclick = (e) => {
+            e.stopPropagation();
+            customMenu.remove();
+            // Get first word or the whole selection if it's short
+            let wordToSearch = text.trim().split(/\s+/)[0];
+            if (wordToSearch) {
+                window.open(`https://www.almaany.com/ar/dict/ar-ar/${encodeURIComponent(wordToSearch)}/`, '_blank');
+            }
+        };
+
         customMenu.appendChild(quoteItem);
         customMenu.appendChild(copyItem);
+        customMenu.appendChild(dictItem);
         document.body.appendChild(customMenu);
     }
 
