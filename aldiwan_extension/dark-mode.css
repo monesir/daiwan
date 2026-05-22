@@ -799,7 +799,7 @@ html body .theme-switcher-btn {
 html body header .search-col,
 html body nav.fixed-top .search-col {
     position: relative !important;
-    left: 45px !important;
+    left: 110px !important;
 }
 
 /* ================= Google Custom Search ================= */
