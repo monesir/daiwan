@@ -42,21 +42,23 @@
         if (appSettings.hideAI) {
             if (!window.aldiwanHideAIInterval) {
                 window.aldiwanHideAIInterval = setInterval(() => {
+                    // Hide BAYAN AI buttons
                     document.querySelectorAll('a.btn.btn-primary').forEach(el => {
                         if(el.textContent.includes('BAYAN') || el.textContent.includes('Bayan')) el.style.display = 'none';
                     });
                     
-                    document.querySelectorAll('div, a').forEach(el => {
-                        if (el.textContent.includes('Bayan') && el.textContent.includes('اكتشف')) {
-                            if (el.offsetHeight > 0 && el.offsetHeight < 200) {
-                                el.style.display = 'none';
-                            }
+                    // Hide Bayan AI top banner via its unique logo
+                    document.querySelectorAll('img.bayanai-logo').forEach(img => {
+                        let banner = img.closest('.gradient-diwan') || img.closest('.row') || img.parentElement;
+                        if (banner && banner !== document.body) {
+                            banner.style.display = 'none';
                         }
                     });
 
-                    document.querySelectorAll('h1, h2, h3, h4, h5, h6, span, div').forEach(heading => {
-                        if (heading.textContent.includes('شُعراء الذكاء الاصطناعي') || heading.textContent.includes('شعراء الذكاء الاصطناعي')) {
-                            let block = heading.closest('.s-block') || heading.closest('.card') || heading.closest('.section') || heading.closest('.mosahmat_block') || heading.parentElement;
+                    // Hide AI poets section via the smart_toy material icon
+                    document.querySelectorAll('span.material-icons').forEach(icon => {
+                        if (icon.textContent.includes('smart_toy')) {
+                            let block = icon.closest('.col-md-8') || icon.closest('.s-menu1') || icon.parentElement;
                             if (block && block !== document.body) {
                                 block.style.display = 'none';
                             }
