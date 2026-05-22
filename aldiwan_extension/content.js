@@ -425,11 +425,10 @@
     injectGSCFix();
     setInterval(() => {
         injectGSCFix();
-        // Remove the inline watermark background that Google CSE injects
+        // Remove the inline watermark background that Google CSE injects unconditionally
         document.querySelectorAll('input.gsc-input').forEach(input => {
-            if (input.style.backgroundImage || input.style.background) {
-                input.style.setProperty('background-image', 'none', 'important');
-            }
+            input.style.setProperty('background', 'transparent', 'important');
+            input.style.setProperty('background-image', 'none', 'important');
         });
     }, 1000);
 

@@ -300,12 +300,12 @@ html body .gsc-control-searchbox-only .gsc-input-box,
 html body .gsc-control-searchbox-only .gsc-search-button,
 html body .gsc-control-searchbox-only .gsc-input,
 html body .gsc-control-searchbox-only .gsc-input-box {
-    background: var(--bg-card) !important;
+    background: transparent !important;
     color: var(--text-main) !important;
 }
 
 html body .gsc-control-searchbox-only .gsc-search-button:hover {
-    background: var(--bg-hover) !important;
+    background: transparent !important;
 }
 
 html body .gsc-search-button-v2 svg {
@@ -313,7 +313,7 @@ html body .gsc-search-button-v2 svg {
 }
 
 html body .gsc-control-searchbox-only input.gsc-input {
-    background: var(--bg-card) !important;
+    background: transparent !important;
     background-image: none !important;
     color: var(--text-main) !important;
     height: 38px !important;
