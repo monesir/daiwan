@@ -150,109 +150,12 @@
         const div2 = document.createElement('div');
         div2.className = 'premium-divider';
 
-        // Container for Settings
-        const settingsContainer = document.createElement('div');
-        settingsContainer.style.position = 'relative';
-        settingsContainer.style.display = 'inline-flex';
-        settingsContainer.style.alignItems = 'center';
-
-        const settingsBtn = document.createElement('a');
-        settingsBtn.href = 'javascript:void(0)';
-        settingsBtn.title = 'إعدادات الإضافة';
-        settingsBtn.innerHTML = '<i class="fas fa-cog"></i>';
-        settingsBtn.className = 'premium-font-btn font-fam-btn';
-
-        const settingsDropdown = document.createElement('div');
-        settingsDropdown.className = 'theme-dropdown-menu';
-        settingsDropdown.style.top = 'calc(100% + 5px)';
-        settingsDropdown.style.left = '50%';
-        settingsDropdown.style.right = 'auto';
-        settingsDropdown.style.transform = 'translateX(-50%)';
-        settingsDropdown.style.width = '240px';
-        settingsDropdown.style.cursor = 'default';
-
-        function renderSettings() {
-            settingsDropdown.innerHTML = '';
-            
-            const title = document.createElement('div');
-            title.style.padding = '8px 15px';
-            title.style.fontWeight = 'bold';
-            title.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
-            title.style.color = '#fff';
-            title.innerText = 'إعدادات الإضافة';
-            settingsDropdown.appendChild(title);
-
-            const options = [
-                { id: 'hideAI', label: 'إخفاء الذكاء الاصطناعي', icon: 'fa-robot' },
-                { id: 'cleanUI', label: 'واجهة نظيفة (بدون مشتتات)', icon: 'fa-eye-slash' }
-            ];
-
-            options.forEach(opt => {
-                const item = document.createElement('div');
-                item.className = 'theme-option';
-                item.style.justifyContent = 'space-between';
-                item.style.padding = '12px 15px';
-                
-                const labelWrap = document.createElement('div');
-                labelWrap.innerHTML = `<i class="fas ${opt.icon}" style="margin-left: 8px;"></i> ${opt.label}`;
-                labelWrap.style.fontSize = '14px';
-                
-                const toggleBtn = document.createElement('div');
-                toggleBtn.style.width = '36px';
-                toggleBtn.style.height = '20px';
-                toggleBtn.style.background = appSettings[opt.id] ? '#4CAF50' : '#ccc';
-                toggleBtn.style.borderRadius = '20px';
-                toggleBtn.style.position = 'relative';
-                toggleBtn.style.transition = '0.3s';
-                
-                const circle = document.createElement('div');
-                circle.style.width = '16px';
-                circle.style.height = '16px';
-                circle.style.background = '#fff';
-                circle.style.borderRadius = '50%';
-                circle.style.position = 'absolute';
-                circle.style.top = '2px';
-                circle.style.left = appSettings[opt.id] ? '2px' : '18px';
-                circle.style.transition = '0.3s';
-                
-                toggleBtn.appendChild(circle);
-                
-                item.appendChild(labelWrap);
-                item.appendChild(toggleBtn);
-                
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    appSettings[opt.id] = !appSettings[opt.id];
-                    
-                    toggleBtn.style.background = appSettings[opt.id] ? '#4CAF50' : '#ccc';
-                    circle.style.left = appSettings[opt.id] ? '2px' : '18px';
-                    
-                    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-                        chrome.storage.local.set({aldiwan_settings: appSettings});
-                    }
-                    applySettingsCSS();
-                });
-                
-                settingsDropdown.appendChild(item);
-            });
-        }
-        
-        renderSettings();
-
-        settingsContainer.appendChild(settingsBtn);
-        settingsContainer.appendChild(settingsDropdown);
-
-        const div3 = document.createElement('div');
-        div3.className = 'premium-divider';
-
         // Add to group
         fontGroup.appendChild(fontIncBtn);
         fontGroup.appendChild(div1);
         fontGroup.appendChild(famContainer);
         fontGroup.appendChild(div2);
         fontGroup.appendChild(fontDecBtn);
-        fontGroup.appendChild(div3);
-        fontGroup.appendChild(settingsContainer);
 
         // Add group to the action bar
         actionContainer.appendChild(fontGroup);
@@ -261,20 +164,11 @@
         fontFamBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            settingsDropdown.classList.remove('show');
             fontDropdown.classList.toggle('show');
-        });
-
-        settingsBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            fontDropdown.classList.remove('show');
-            settingsDropdown.classList.toggle('show');
         });
 
         document.addEventListener('click', () => {
             fontDropdown.classList.remove('show');
-            settingsDropdown.classList.remove('show');
         });
 
         fontIncBtn.addEventListener('click', (e) => {
@@ -398,6 +292,7 @@
     setTimeout(() => {
         injectButtons();
         injectThemeButton();
+        injectGlobalSettings();
     }, 1000);
 
     // Apply saved theme on load
@@ -481,6 +376,130 @@
         // Close dropdown when clicking outside
         document.addEventListener('click', () => {
             document.querySelectorAll('.theme-dropdown-menu').forEach(m => m.classList.remove('show'));
+        });
+    }
+
+    function injectGlobalSettings() {
+        const headers = document.querySelectorAll('header, nav.fixed-top');
+        
+        headers.forEach(header => {
+            if (header.querySelector('.settings-dropdown-container')) return;
+
+            const registerBtn = header.querySelector('a[href*="/register"]');
+            if (!registerBtn) return;
+
+            const container = document.createElement('div');
+            container.className = 'settings-dropdown-container theme-dropdown-container';
+            
+            if (registerBtn.classList.contains('float-left')) {
+                container.classList.add('float-left');
+            }
+            container.style.marginLeft = '5px';
+            container.style.marginRight = '5px';
+
+            const btn = document.createElement('a');
+            btn.href = 'javascript:void(0)';
+            btn.innerHTML = '<i class="fas fa-cog"></i>';
+            btn.title = 'إعدادات الإضافة';
+            btn.className = registerBtn.className.replace('float-left', '').trim() + ' theme-switcher-btn';
+            
+            btn.style.paddingLeft = '15px';
+            btn.style.paddingRight = '15px';
+
+            const settingsDropdown = document.createElement('div');
+            settingsDropdown.className = 'theme-dropdown-menu';
+            settingsDropdown.style.top = 'calc(100% + 5px)';
+            settingsDropdown.style.left = '50%';
+            settingsDropdown.style.right = 'auto';
+            settingsDropdown.style.transform = 'translateX(-50%)';
+            settingsDropdown.style.width = '240px';
+            settingsDropdown.style.cursor = 'default';
+
+            function renderSettings() {
+                settingsDropdown.innerHTML = '';
+                
+                const title = document.createElement('div');
+                title.style.padding = '8px 15px';
+                title.style.fontWeight = 'bold';
+                title.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+                title.style.color = '#fff';
+                title.innerText = 'إعدادات الإضافة';
+                settingsDropdown.appendChild(title);
+
+                const options = [
+                    { id: 'hideAI', label: 'إخفاء الذكاء الاصطناعي', icon: 'fa-robot' },
+                    { id: 'cleanUI', label: 'واجهة نظيفة (بدون مشتتات)', icon: 'fa-eye-slash' }
+                ];
+
+                options.forEach(opt => {
+                    const item = document.createElement('div');
+                    item.className = 'theme-option';
+                    item.style.justifyContent = 'space-between';
+                    item.style.padding = '12px 15px';
+                    
+                    const labelWrap = document.createElement('div');
+                    labelWrap.innerHTML = `<i class="fas ${opt.icon}" style="margin-left: 8px;"></i> ${opt.label}`;
+                    labelWrap.style.fontSize = '14px';
+                    
+                    const toggleBtn = document.createElement('div');
+                    toggleBtn.style.width = '36px';
+                    toggleBtn.style.height = '20px';
+                    toggleBtn.style.background = appSettings[opt.id] ? '#4CAF50' : '#ccc';
+                    toggleBtn.style.borderRadius = '20px';
+                    toggleBtn.style.position = 'relative';
+                    toggleBtn.style.transition = '0.3s';
+                    
+                    const circle = document.createElement('div');
+                    circle.style.width = '16px';
+                    circle.style.height = '16px';
+                    circle.style.background = '#fff';
+                    circle.style.borderRadius = '50%';
+                    circle.style.position = 'absolute';
+                    circle.style.top = '2px';
+                    circle.style.left = appSettings[opt.id] ? '2px' : '18px';
+                    circle.style.transition = '0.3s';
+                    
+                    toggleBtn.appendChild(circle);
+                    
+                    item.appendChild(labelWrap);
+                    item.appendChild(toggleBtn);
+                    
+                    item.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        appSettings[opt.id] = !appSettings[opt.id];
+                        
+                        toggleBtn.style.background = appSettings[opt.id] ? '#4CAF50' : '#ccc';
+                        circle.style.left = appSettings[opt.id] ? '2px' : '18px';
+                        
+                        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+                            chrome.storage.local.set({aldiwan_settings: appSettings});
+                        }
+                        applySettingsCSS();
+                    });
+                    
+                    settingsDropdown.appendChild(item);
+                });
+            }
+            
+            renderSettings();
+            
+            container.appendChild(btn);
+            container.appendChild(settingsDropdown);
+
+            if (header.tagName.toLowerCase() === 'nav' || header.classList.contains('fixed-top')) {
+                registerBtn.parentNode.insertBefore(container, registerBtn.nextSibling);
+            } else {
+                registerBtn.parentNode.insertBefore(container, registerBtn);
+            }
+
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                document.querySelectorAll('.theme-dropdown-menu').forEach(m => {
+                    if (m !== settingsDropdown) m.classList.remove('show');
+                });
+                settingsDropdown.classList.toggle('show');
+            });
         });
     }
 
