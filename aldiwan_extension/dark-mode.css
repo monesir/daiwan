@@ -802,6 +802,13 @@ html body nav.fixed-top .search-col {
     left: 110px !important;
 }
 
+/* Move header list to the right */
+html body header .header-list,
+html body nav.fixed-top .header-list {
+    position: relative !important;
+    right: -40px !important;
+}
+
 /* ================= Google Custom Search ================= */
 html body .gsc-control-wrapper-cse,
 html body .gsc-control-cse,
