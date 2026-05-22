@@ -441,8 +441,8 @@
         dictItem.onclick = (e) => {
             e.stopPropagation();
             customMenu.remove();
-            // Get first word or the whole selection if it's short
-            let wordToSearch = text.trim().split(/\s+/)[0];
+            // Get the whole selection
+            let wordToSearch = text.trim();
             if (wordToSearch) {
                 window.open(`https://www.almaany.com/ar/dict/ar-ar/${encodeURIComponent(wordToSearch)}/`, '_blank');
             }
