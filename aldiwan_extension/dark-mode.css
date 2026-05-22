@@ -160,8 +160,8 @@ html body .mosahmat_block_top > * {
     transform: none !important;
 }
 
-html body .mosahmat_block_top .google-auto-placed,
-html body .mosahmat_block_top .ads {
+html body .google-auto-placed,
+html body .ads {
     display: none !important;
 }
 
