@@ -40,12 +40,86 @@
         styleEl.textContent = css;
 
         if (appSettings.hideAI) {
-            document.querySelectorAll('a.btn.btn-primary').forEach(el => {
-                if(el.textContent.includes('BAYAN AI')) el.style.display = 'none';
-            });
+            if (!window.aldiwanHideAIInterval) {
+                window.aldiwanHideAIInterval = setInterval(() => {
+                    document.querySelectorAll('a.btn.btn-primary').forEach(el => {
+                        if(el.textContent.includes('BAYAN') || el.textContent.includes('Bayan')) el.style.display = 'none';
+                    });
+                    
+                    const word_Discover = decodeURIComponent('%D8%A7%D9%83%D8%AA%D8%B4%D9%81'); // اكتشف
+                    const word_AI = decodeURIComponent('%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1'); // الذكاء
+                    const suggestedPoems = decodeURIComponent('%D9%82%D8%B5%D8%A7%D8%A6%D8%AF%20%D9%85%D9%82%D8%AA%D8%B1%D8%AD%D8%A9'); // قصائد مقترحة
+                    const randomPoem = decodeURIComponent('%D9%82%D8%B5%D9%8A%D8%AF%D8%A9%20%D8%B9%D8%B4%D9%88%D8%A7%D8%A6%D9%8A%D8%A9'); // قصيدة عشوائية
+
+                    // Hide Bayan AI banner
+                    document.querySelectorAll('div, a, h3').forEach(el => {
+                        if ((el.textContent.includes('Bayan') || el.textContent.includes('BAYAN')) && el.textContent.includes(word_Discover)) {
+                            let banner = el.closest('.gradient-diwan') || el.closest('.row') || el.parentElement;
+                            if (banner && banner !== document.body) {
+                                banner.style.display = 'none';
+                            }
+                        }
+                    });
+
+                    // Replace AI poets with Suggested Poems
+                    document.querySelectorAll('h1, h2, h3, h4, h5, h6, span, div').forEach(heading => {
+                        if (heading.textContent.includes(word_AI)) {
+                            // Find the block
+                            let block = heading.closest('.s-menu1') || heading.parentElement;
+                            if (block && block !== document.body) {
+                                let h2 = block.querySelector('.header h2') || heading;
+                                if (h2 && h2.dataset.isReplaced !== 'true') {
+                                    h2.dataset.isReplaced = 'true';
+                                    h2.dataset.origText = h2.textContent;
+                                    h2.textContent = suggestedPoems;
+                                    
+                                    const icon = block.querySelector('.material-icons');
+                                    if (icon) {
+                                        h2.dataset.origIcon = icon.textContent;
+                                        icon.textContent = 'library_books';
+                                    }
+
+                                    const container = block.querySelector('.content');
+                                    if (container) {
+                                        h2.dataset.origHtml = container.innerHTML;
+                                        container.innerHTML = '';
+                                        for(let i = 1; i <= 5; i++) {
+                                            container.innerHTML += '<div class="col-12 col-md-3 px-2 mb-2"><a class="py-1 d-block" href="/random">' + randomPoem + ' ' + i + '</a></div>';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                }, 1000);
+            }
         } else {
+            if (window.aldiwanHideAIInterval) {
+                clearInterval(window.aldiwanHideAIInterval);
+                window.aldiwanHideAIInterval = null;
+            }
             document.querySelectorAll('a.btn.btn-primary').forEach(el => {
-                if(el.textContent.includes('BAYAN AI')) el.style.display = '';
+                if(el.textContent.includes('BAYAN') || el.textContent.includes('Bayan')) el.style.display = '';
+            });
+
+            document.querySelectorAll('.s-menu1 .header h2').forEach(h2 => {
+                if (h2.dataset.isReplaced === 'true') {
+                    h2.dataset.isReplaced = 'false';
+                    h2.textContent = h2.dataset.origText;
+                    
+                    const block = h2.closest('.s-menu1');
+                    if (block) {
+                        const icon = block.querySelector('.material-icons');
+                        if (icon && h2.dataset.origIcon) {
+                            icon.textContent = h2.dataset.origIcon;
+                        }
+                        const container = block.querySelector('.content');
+                        if (container && h2.dataset.origHtml) {
+                            container.innerHTML = h2.dataset.origHtml;
+                        }
+                    }
+                }
             });
         }
     }
