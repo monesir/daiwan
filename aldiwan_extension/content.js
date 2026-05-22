@@ -404,6 +404,21 @@
                 <span style="color: #ccc; font-size: 14px;">إظهار الزخارف</span>
                 <input type="checkbox" id="quote-show-ornaments" checked style="width: 20px; height: 20px; cursor: pointer;">
             </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
+                <span style="color: #ccc; font-size: 14px;">نوع الخط</span>
+                <select id="quote-font-family" style="background: #333; color: #fff; border: 1px solid #555; border-radius: 4px; padding: 5px; width: 130px; font-family: Tahoma;">
+                    <option value="Arabic Poetry">الديوان (افتراضي)</option>
+                    <option value="Amiri">أميري</option>
+                    <option value="Tajawal">تجوال</option>
+                    <option value="Aref Ruqaa">رقعة</option>
+                    <option value="Reem Kufi">كوفي</option>
+                    <option value="custom">رابط مخصص...</option>
+                </select>
+            </div>
+            <div id="quote-custom-font-container" style="display: none; flex-direction: column; gap: 5px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
+                <span style="color: #ccc; font-size: 12px;">رابط Google Fonts</span>
+                <input type="text" id="quote-custom-font-url" placeholder="https://fonts.googleapis.com/css2?family=Cairo..." style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #555; background: #222; color: #fff; text-align: left; direction: ltr; font-size: 11px;">
+            </div>
             
             <div id="quote-image-controls" style="display: none; flex-direction: column; gap: 10px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
                 <div style="color: #dcb98a; font-size: 13px; text-align: center; margin-bottom: 5px; font-weight: bold;">إعدادات الصورة</div>
@@ -470,6 +485,7 @@
         let bgPanY = 0;
         let textColor = '#ebd197';
         let showOrnaments = true;
+        let fontFamily = 'Arabic Poetry';
 
         const textarea = document.getElementById('quote-text-input');
         textarea.value = currentText;
@@ -486,7 +502,7 @@
                 document.getElementById('quote-bg-btn').style.display = 'block';
             }
             
-            drawQuote(canvas, currentText, fontSize, lineSpacing, padding, backgroundImage, bgDim, bgBlur, bgZoom, bgPanX, bgPanY, textColor, showOrnaments);
+            drawQuote(canvas, currentText, fontSize, lineSpacing, padding, backgroundImage, bgDim, bgBlur, bgZoom, bgPanX, bgPanY, textColor, showOrnaments, fontFamily);
         }
 
         textarea.addEventListener('input', updateCanvas);
@@ -498,6 +514,51 @@
 
         document.getElementById('quote-text-color').oninput = (e) => { textColor = e.target.value; updateCanvas(); };
         document.getElementById('quote-show-ornaments').onchange = (e) => { showOrnaments = e.target.checked; updateCanvas(); };
+
+        // Font Loading Logic
+        function loadFontFromUrl(url, explicitName) {
+            let parsedName = explicitName;
+            if (!parsedName) {
+                let match = url.match(/family=([^&:]+)/);
+                if (match && match[1]) {
+                    parsedName = match[1].replace(/\+/g, ' ').split(':')[0];
+                }
+            }
+            if (!parsedName) return;
+
+            if (!document.querySelector(`link[href="${url}"]`)) {
+                let link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = url;
+                document.head.appendChild(link);
+            }
+            
+            fontFamily = parsedName;
+            document.fonts.load(`10px "${fontFamily}"`).then(() => updateCanvas()).catch(() => updateCanvas());
+        }
+
+        document.getElementById('quote-font-family').onchange = (e) => {
+            let val = e.target.value;
+            if (val === 'custom') {
+                document.getElementById('quote-custom-font-container').style.display = 'flex';
+            } else {
+                document.getElementById('quote-custom-font-container').style.display = 'none';
+                if (val === 'Arabic Poetry') {
+                    fontFamily = val;
+                    updateCanvas();
+                } else {
+                    let url = `https://fonts.googleapis.com/css2?family=${val.replace(/ /g, '+')}&display=swap`;
+                    loadFontFromUrl(url, val);
+                }
+            }
+        };
+
+        document.getElementById('quote-custom-font-url').oninput = (e) => {
+            let url = e.target.value.trim();
+            if (url.startsWith('http')) {
+                loadFontFromUrl(url, null);
+            }
+        };
 
         // Image Controls events
         document.getElementById('quote-bg-dim').oninput = (e) => { bgDim = parseInt(e.target.value); updateCanvas(); };
@@ -553,7 +614,7 @@
         updateCanvas();
     }
 
-    function drawQuote(canvas, text, fontSize, lineSpacing, padding, backgroundImage, bgDim, bgBlur, bgZoom, bgPanX, bgPanY, textColor, showOrnaments) {
+    function drawQuote(canvas, text, fontSize, lineSpacing, padding, backgroundImage, bgDim, bgBlur, bgZoom, bgPanX, bgPanY, textColor, showOrnaments, fontFamily) {
         const ctx = canvas.getContext('2d');
         
         // Clean canvas
@@ -562,7 +623,7 @@
         let lines = text.split('\n').map(l => l.trim());
         
         // MUST set font BEFORE measuring text!
-        ctx.font = `${fontSize}px "Arabic Poetry", serif`;
+        ctx.font = `${fontSize}px "${fontFamily}", serif`;
         
         let maxLineWidth = 0;
         let totalTextHeight = 0;
@@ -593,7 +654,7 @@
         canvas.height = visualHeight + (visualTopEmptySpace * 2);
 
         // 3. Re-apply context styles after changing dimensions
-        ctx.font = `${fontSize}px "Arabic Poetry", serif`;
+        ctx.font = `${fontSize}px "${fontFamily}", serif`;
         ctx.direction = 'rtl';
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
@@ -701,7 +762,7 @@
         }
 
         // Draw Poetry Text
-        ctx.font = `${fontSize}px "Arabic Poetry", serif`;
+        ctx.font = `${fontSize}px "${fontFamily}", serif`;
         
         // Mathematical top is adjusted by visualOffset to place the text ink at visualTop
         let mathTop = visualTop - visualOffset;
