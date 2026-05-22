@@ -406,6 +406,9 @@
             // Adjust padding to make it a neat button
             btn.style.paddingLeft = '15px';
             btn.style.paddingRight = '15px';
+            btn.style.display = 'inline-flex';
+            btn.style.alignItems = 'center';
+            btn.style.justifyContent = 'center';
 
             const dropdown = document.createElement('div');
             dropdown.className = 'theme-dropdown-menu';
@@ -476,12 +479,15 @@
 
             const btn = document.createElement('a');
             btn.href = 'javascript:void(0)';
-            btn.innerHTML = '<i class="fas fa-cog"></i>';
+            btn.innerHTML = '<i class="fas fa-cog"></i>&#8203;';
             btn.title = 'إعدادات الإضافة';
             btn.className = registerBtn.className.replace('float-left', '').trim() + ' theme-switcher-btn';
             
             btn.style.paddingLeft = '15px';
             btn.style.paddingRight = '15px';
+            btn.style.display = 'inline-flex';
+            btn.style.alignItems = 'center';
+            btn.style.justifyContent = 'center';
 
             const settingsDropdown = document.createElement('div');
             settingsDropdown.className = 'theme-dropdown-menu';
