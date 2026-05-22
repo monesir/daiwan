@@ -40,16 +40,14 @@
         styleEl.textContent = css;
 
         if (appSettings.hideAI) {
-            if (!window.aldiwanHideAIInterval) {
-                window.aldiwanHideAIInterval = setInterval(() => {
+            if (!window.aldiwanHideAIFn) {
+                window.aldiwanHideAIFn = () => {
                     document.querySelectorAll('a.btn.btn-primary').forEach(el => {
                         if(el.textContent.includes('BAYAN') || el.textContent.includes('Bayan')) el.style.display = 'none';
                     });
                     
-                    const word_Discover = decodeURIComponent('%D8%A7%D9%83%D8%AA%D8%B4%D9%81'); // اكتشف
                     const word_AI = decodeURIComponent('%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1'); // الذكاء
                     const suggestedPoems = decodeURIComponent('%D9%82%D8%B5%D8%A7%D8%A6%D8%AF%20%D9%85%D9%82%D8%AA%D8%B1%D8%AD%D8%A9'); // قصائد مقترحة
-                    const randomPoem = decodeURIComponent('%D9%82%D8%B5%D9%8A%D8%AF%D8%A9%20%D8%B9%D8%B4%D9%88%D8%A7%D8%A6%D9%8A%D8%A9'); // قصيدة عشوائية
 
                     // Hide Bayan AI banner
                     document.querySelectorAll('.gradient-diwan').forEach(el => {
@@ -95,8 +93,9 @@
                             }
                         }
                     });
-
-                }, 1000);
+                };
+                window.aldiwanHideAIFn();
+                window.aldiwanHideAIInterval = setInterval(window.aldiwanHideAIFn, 200);
             }
         } else {
             if (window.aldiwanHideAIInterval) {
