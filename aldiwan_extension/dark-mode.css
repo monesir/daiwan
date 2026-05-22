@@ -140,6 +140,16 @@ nav a:hover, .footer a:hover, footer a:hover {
     border-color: var(--border-main) !important;
 }
 
+.mosahmat_block_top {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    gap: 20px !important;
+}
+.mosahmat_block_top > div {
+    margin-bottom: 0 !important;
+}
+
 /* --- 7. Nav, Footer, Alphabet bar (.m-section-2) --- */
 nav, .navbar, .fixed-top {
     background: var(--bg-card) !important;
