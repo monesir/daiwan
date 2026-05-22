@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "الديوان - تصميم اقتباس",
-  "version": "1.9.8",
+  "version": "1.9.9",
   "description": "إضافة توفر وضع ليلي شامل لموقع الديوان وأزرار لتغيير نوع وحجم خط القصائد.",
   "action": {
     "default_popup": "popup.html",
@@ -37,14 +37,5 @@
       "resources": ["arabic-poetry.otf"],
       "matches": ["*://*.aldiwan.net/*"]
     }
-  ],
-  "icons": {
-    "128": "icon.png"
-  },
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "128": "icon.png"
-    }
-  }
+  ]
 }
