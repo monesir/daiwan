@@ -368,8 +368,8 @@
     // Wait slightly to ensure page loads its components
     setTimeout(() => {
         injectButtons();
-        injectThemeButton();
         injectGlobalSettings();
+        injectThemeButton();
     }, 1000);
 
     // Apply saved theme on load
