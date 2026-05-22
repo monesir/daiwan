@@ -11,6 +11,54 @@
     // User zoom offset
     let userFontSizeOffset = 0; 
     
+    // App Settings
+    let appSettings = {
+        hideAI: false,
+        cleanUI: false
+    };
+
+    function applySettingsCSS() {
+        let styleEl = document.getElementById('aldiwan-settings-css');
+        if (!styleEl) {
+            styleEl = document.createElement('style');
+            styleEl.id = 'aldiwan-settings-css';
+            document.head.appendChild(styleEl);
+        }
+        let css = '';
+        if (appSettings.hideAI) {
+            css += `
+                #ai-explanation-section, .ai-explain-card { display: none !important; }
+            `;
+        }
+        if (appSettings.cleanUI) {
+            css += `
+                .ads, .adsbygoogle { display: none !important; }
+                .mosahmat_block, .mosahmat_block_top { display: none !important; }
+                .tips { display: none !important; }
+            `;
+        }
+        styleEl.textContent = css;
+
+        if (appSettings.hideAI) {
+            document.querySelectorAll('a.btn.btn-primary').forEach(el => {
+                if(el.textContent.includes('BAYAN AI')) el.style.display = 'none';
+            });
+        } else {
+            document.querySelectorAll('a.btn.btn-primary').forEach(el => {
+                if(el.textContent.includes('BAYAN AI')) el.style.display = '';
+            });
+        }
+    }
+
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+        chrome.storage.local.get(['aldiwan_settings'], function(result) {
+            if (result.aldiwan_settings) {
+                appSettings = result.aldiwan_settings;
+            }
+            applySettingsCSS();
+        });
+    }
+    
     function injectButtons() {
         const actionContainer = document.querySelector('.poem-actions');
         if (!actionContainer) return; // Only inject if we are on a poem page
@@ -102,12 +150,109 @@
         const div2 = document.createElement('div');
         div2.className = 'premium-divider';
 
+        // Container for Settings
+        const settingsContainer = document.createElement('div');
+        settingsContainer.style.position = 'relative';
+        settingsContainer.style.display = 'inline-flex';
+        settingsContainer.style.alignItems = 'center';
+
+        const settingsBtn = document.createElement('a');
+        settingsBtn.href = 'javascript:void(0)';
+        settingsBtn.title = 'إعدادات الإضافة';
+        settingsBtn.innerHTML = '<i class="fas fa-cog"></i>';
+        settingsBtn.className = 'premium-font-btn font-fam-btn';
+
+        const settingsDropdown = document.createElement('div');
+        settingsDropdown.className = 'theme-dropdown-menu';
+        settingsDropdown.style.top = 'calc(100% + 5px)';
+        settingsDropdown.style.left = '50%';
+        settingsDropdown.style.right = 'auto';
+        settingsDropdown.style.transform = 'translateX(-50%)';
+        settingsDropdown.style.width = '240px';
+        settingsDropdown.style.cursor = 'default';
+
+        function renderSettings() {
+            settingsDropdown.innerHTML = '';
+            
+            const title = document.createElement('div');
+            title.style.padding = '8px 15px';
+            title.style.fontWeight = 'bold';
+            title.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+            title.style.color = '#fff';
+            title.innerText = 'إعدادات الإضافة';
+            settingsDropdown.appendChild(title);
+
+            const options = [
+                { id: 'hideAI', label: 'إخفاء الذكاء الاصطناعي', icon: 'fa-robot' },
+                { id: 'cleanUI', label: 'واجهة نظيفة (بدون مشتتات)', icon: 'fa-eye-slash' }
+            ];
+
+            options.forEach(opt => {
+                const item = document.createElement('div');
+                item.className = 'theme-option';
+                item.style.justifyContent = 'space-between';
+                item.style.padding = '12px 15px';
+                
+                const labelWrap = document.createElement('div');
+                labelWrap.innerHTML = `<i class="fas ${opt.icon}" style="margin-left: 8px;"></i> ${opt.label}`;
+                labelWrap.style.fontSize = '14px';
+                
+                const toggleBtn = document.createElement('div');
+                toggleBtn.style.width = '36px';
+                toggleBtn.style.height = '20px';
+                toggleBtn.style.background = appSettings[opt.id] ? '#4CAF50' : '#ccc';
+                toggleBtn.style.borderRadius = '20px';
+                toggleBtn.style.position = 'relative';
+                toggleBtn.style.transition = '0.3s';
+                
+                const circle = document.createElement('div');
+                circle.style.width = '16px';
+                circle.style.height = '16px';
+                circle.style.background = '#fff';
+                circle.style.borderRadius = '50%';
+                circle.style.position = 'absolute';
+                circle.style.top = '2px';
+                circle.style.left = appSettings[opt.id] ? '2px' : '18px';
+                circle.style.transition = '0.3s';
+                
+                toggleBtn.appendChild(circle);
+                
+                item.appendChild(labelWrap);
+                item.appendChild(toggleBtn);
+                
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    appSettings[opt.id] = !appSettings[opt.id];
+                    
+                    toggleBtn.style.background = appSettings[opt.id] ? '#4CAF50' : '#ccc';
+                    circle.style.left = appSettings[opt.id] ? '2px' : '18px';
+                    
+                    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+                        chrome.storage.local.set({aldiwan_settings: appSettings});
+                    }
+                    applySettingsCSS();
+                });
+                
+                settingsDropdown.appendChild(item);
+            });
+        }
+        
+        renderSettings();
+
+        settingsContainer.appendChild(settingsBtn);
+        settingsContainer.appendChild(settingsDropdown);
+
+        const div3 = document.createElement('div');
+        div3.className = 'premium-divider';
+
         // Add to group
         fontGroup.appendChild(fontIncBtn);
         fontGroup.appendChild(div1);
         fontGroup.appendChild(famContainer);
         fontGroup.appendChild(div2);
         fontGroup.appendChild(fontDecBtn);
+        fontGroup.appendChild(div3);
+        fontGroup.appendChild(settingsContainer);
 
         // Add group to the action bar
         actionContainer.appendChild(fontGroup);
@@ -116,11 +261,20 @@
         fontFamBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
+            settingsDropdown.classList.remove('show');
             fontDropdown.classList.toggle('show');
+        });
+
+        settingsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            fontDropdown.classList.remove('show');
+            settingsDropdown.classList.toggle('show');
         });
 
         document.addEventListener('click', () => {
             fontDropdown.classList.remove('show');
+            settingsDropdown.classList.remove('show');
         });
 
         fontIncBtn.addEventListener('click', (e) => {
