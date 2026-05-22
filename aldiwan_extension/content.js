@@ -40,12 +40,28 @@
         styleEl.textContent = css;
 
         if (appSettings.hideAI) {
-            document.querySelectorAll('a.btn.btn-primary').forEach(el => {
-                if(el.textContent.includes('BAYAN AI')) el.style.display = 'none';
-            });
+            if (!window.aldiwanHideAIInterval) {
+                window.aldiwanHideAIInterval = setInterval(() => {
+                    document.querySelectorAll('a.btn.btn-primary').forEach(el => {
+                        if(el.textContent.includes('BAYAN') || el.textContent.includes('Bayan')) el.style.display = 'none';
+                    });
+                    
+                    document.querySelectorAll('div, a').forEach(el => {
+                        if (el.textContent.includes('Bayan') && el.textContent.includes('اكتشف')) {
+                            if (el.offsetHeight > 0 && el.offsetHeight < 200) {
+                                el.style.display = 'none';
+                            }
+                        }
+                    });
+                }, 1000);
+            }
         } else {
+            if (window.aldiwanHideAIInterval) {
+                clearInterval(window.aldiwanHideAIInterval);
+                window.aldiwanHideAIInterval = null;
+            }
             document.querySelectorAll('a.btn.btn-primary').forEach(el => {
-                if(el.textContent.includes('BAYAN AI')) el.style.display = '';
+                if(el.textContent.includes('BAYAN') || el.textContent.includes('Bayan')) el.style.display = '';
             });
         }
     }
