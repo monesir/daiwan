@@ -372,66 +372,6 @@
         injectThemeButton();
     }, 1000);
 
-    // Force fix Google Custom Search Box by injecting a dynamic style tag
-    // This ensures it stays at the bottom of the DOM and overrides Google's async CSS
-    function injectGSCFix() {
-        let fixStyle = document.getElementById('aldiwan-gsc-fix');
-        if (!fixStyle) {
-            fixStyle = document.createElement('style');
-            fixStyle.id = 'aldiwan-gsc-fix';
-            document.head.appendChild(fixStyle);
-        }
-        
-        fixStyle.textContent = `
-            html body table.gsc-search-box td.gsc-search-button {
-                width: 45px !important;
-                height: 38px !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                vertical-align: middle !important;
-                text-align: center !important;
-            }
-            html body table.gsc-search-box td.gsc-search-button button.gsc-search-button-v2 {
-                all: unset !important;
-                box-sizing: border-box !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                width: 100% !important;
-                height: 100% !important;
-                cursor: pointer !important;
-                background: transparent !important;
-            }
-            html body table.gsc-search-box td.gsc-search-button button.gsc-search-button-v2 svg {
-                all: unset !important;
-                display: block !important;
-                width: 16px !important;
-                height: 16px !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                fill: var(--text-main, #ffffff) !important;
-            }
-            html body table.gsc-search-box td.gsc-input {
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-            /* KILL GOOGLE'S BROKEN WATERMARK BACKGROUND IMAGE */
-            html body table.gsc-search-box td.gsc-input input.gsc-input {
-                background-image: none !important;
-            }
-        `;
-    }
-    
-    injectGSCFix();
-    setInterval(() => {
-        injectGSCFix();
-        // Remove the inline watermark background that Google CSE injects unconditionally
-        document.querySelectorAll('input.gsc-input').forEach(input => {
-            input.style.setProperty('background', 'transparent', 'important');
-            input.style.setProperty('background-image', 'none', 'important');
-        });
-    }, 1000);
-
     // Apply saved theme on load
     const savedTheme = localStorage.getItem('aldiwan_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
