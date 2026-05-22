@@ -1,8 +1,11 @@
 {
   "manifest_version": 3,
   "name": "الديوان - تصميم اقتباس",
-  "version": "1.9.7",
+  "version": "1.9.8",
   "description": "إضافة توفر وضع ليلي شامل لموقع الديوان وأزرار لتغيير نوع وحجم خط القصائد.",
+  "action": {
+    "default_popup": "popup.html"
+  },
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
