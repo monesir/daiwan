@@ -319,6 +319,8 @@ html body .g-search .gsc-control-searchbox-only input.gsc-input,
 html body .g-search.g-search-2 .gsc-control-searchbox-only input.gsc-input {
     background: var(--bg-card) !important;
     color: var(--text-main) !important;
+    height: 36px !important;
+    margin: 0 !important;
 }
 
 html body .g-search .gsc-control-searchbox-only input.gsc-input::placeholder,
@@ -326,13 +328,35 @@ html body .g-search.g-search-2 .gsc-control-searchbox-only input.gsc-input::plac
     color: var(--text-muted) !important;
 }
 
-html body .g-search .gsc-control-searchbox-only {
+html body .g-search .gsc-control-searchbox-only,
+html body .g-search.g-search-2 .gsc-control-searchbox-only {
     background: transparent !important;
     border: 1px solid var(--border-main) !important;
     border-radius: 4px !important;
+    padding: 0 !important;
+    height: 38px !important;
+    overflow: hidden !important;
 }
-html body .g-search form.gsc-search-box {
+
+html body .g-search form.gsc-search-box,
+html body .g-search table.gsc-search-box {
     background: transparent !important;
+    margin: 0 !important;
+    height: 36px !important;
+}
+
+html body .g-search .gsc-input-box {
+    border: none !important;
+    height: 36px !important;
+    margin: 0 !important;
+}
+
+html body .g-search .gsc-search-button-v2,
+html body .g-search.g-search-2 .gsc-search-button-v2 {
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 0 12px !important;
+    border-radius: 0 !important;
 }
 
 /* Google Custom Search Autocomplete Dropdown */
