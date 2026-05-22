@@ -26,7 +26,7 @@
         let css = '';
         if (appSettings.hideAI) {
             css += `
-                #ai-explanation-section, .ai-explain-card, .gradient-diwan { display: none !important; }
+                #ai-explanation-section, .ai-explain-card { display: none !important; }
             `;
         }
         styleEl.textContent = css;
@@ -41,9 +41,17 @@
                     const word_AI = decodeURIComponent('%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1'); // الذكاء
                     const suggestedPoems = decodeURIComponent('%D9%82%D8%B5%D8%A7%D8%A6%D8%AF%20%D9%85%D9%82%D8%AA%D8%B1%D8%AD%D8%A9'); // قصائد مقترحة
 
-                    // Hide Bayan AI banner
+                    // Repurpose Bayan AI banner
                     document.querySelectorAll('.gradient-diwan').forEach(el => {
-                        el.style.display = 'none';
+                        let btn = el.querySelector('.btn-diwan');
+                        if (btn) btn.remove();
+                        
+                        let h3 = el.querySelector('h3');
+                        if (h3) {
+                            h3.textContent = 'اللهم صل وبارك على النبي وآله';
+                            h3.style.justifyContent = 'center'; // Center the text beautifully
+                            h3.style.width = '100%';
+                        }
                     });
 
                     // Replace AI poets with Suggested Poems
