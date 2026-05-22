@@ -26,7 +26,7 @@
         let css = '';
         if (appSettings.hideAI) {
             css += `
-                #ai-explanation-section, .ai-explain-card { display: none !important; }
+                #ai-explanation-section, .ai-explain-card, .gradient-diwan { display: none !important; }
             `;
         }
         styleEl.textContent = css;
