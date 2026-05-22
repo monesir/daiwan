@@ -13,8 +13,7 @@
     
     // App Settings
     let appSettings = {
-        hideAI: false,
-        cleanUI: false
+        hideAI: false
     };
 
     function applySettingsCSS() {
@@ -28,13 +27,6 @@
         if (appSettings.hideAI) {
             css += `
                 #ai-explanation-section, .ai-explain-card { display: none !important; }
-            `;
-        }
-        if (appSettings.cleanUI) {
-            css += `
-                .ads, .adsbygoogle { display: none !important; }
-                .mosahmat_block, .mosahmat_block_top { display: none !important; }
-                .tips { display: none !important; }
             `;
         }
         styleEl.textContent = css;
@@ -504,8 +496,7 @@
                 settingsDropdown.appendChild(title);
 
                 const options = [
-                    { id: 'hideAI', label: 'إخفاء الذكاء الاصطناعي', icon: 'fa-robot' },
-                    { id: 'cleanUI', label: 'واجهة نظيفة (بدون مشتتات)', icon: 'fa-eye-slash' }
+                    { id: 'hideAI', label: 'إخفاء الذكاء الاصطناعي', icon: 'fa-robot' }
                 ];
 
                 options.forEach(opt => {
