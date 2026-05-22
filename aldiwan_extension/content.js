@@ -52,21 +52,16 @@
                     const randomPoem = decodeURIComponent('%D9%82%D8%B5%D9%8A%D8%AF%D8%A9%20%D8%B9%D8%B4%D9%88%D8%A7%D8%A6%D9%8A%D8%A9'); // قصيدة عشوائية
 
                     // Hide Bayan AI banner
-                    document.querySelectorAll('div, a, h3').forEach(el => {
-                        if ((el.textContent.includes('Bayan') || el.textContent.includes('BAYAN')) && el.textContent.includes(word_Discover)) {
-                            let banner = el.closest('.gradient-diwan') || el.closest('.row') || el.parentElement;
-                            if (banner && banner !== document.body) {
-                                banner.style.display = 'none';
-                            }
-                        }
+                    document.querySelectorAll('.gradient-diwan').forEach(el => {
+                        el.style.display = 'none';
                     });
 
                     // Replace AI poets with Suggested Poems
-                    document.querySelectorAll('h1, h2, h3, h4, h5, h6, span, div').forEach(heading => {
+                    document.querySelectorAll('h1, h2, h3').forEach(heading => {
                         if (heading.textContent.includes(word_AI)) {
-                            // Find the block
-                            let block = heading.closest('.s-menu1') || heading.parentElement;
-                            if (block && block !== document.body) {
+                            // Find the block safely
+                            let block = heading.closest('.s-menu1') || heading.closest('.card') || heading.closest('.s-block') || heading.closest('.mosahmat_block');
+                            if (block && !block.closest('header') && !block.closest('nav')) {
                                 let h2 = block.querySelector('.header h2') || heading;
                                 if (h2 && h2.dataset.isReplaced !== 'true') {
                                     h2.dataset.isReplaced = 'true';
