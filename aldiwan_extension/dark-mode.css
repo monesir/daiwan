@@ -323,7 +323,7 @@ html body .g-search .gsc-control-searchbox-only input.gsc-input,
 html body .g-search.g-search-2 .gsc-control-searchbox-only input.gsc-input {
     background: var(--bg-card) !important;
     color: var(--text-main) !important;
-    height: 36px !important;
+    height: 38px !important;
     margin: 0 !important;
 }
 
@@ -351,17 +351,27 @@ html body .g-search table.gsc-search-box {
 
 html body .g-search .gsc-input-box {
     border: none !important;
-    height: 36px !important;
+    height: 38px !important;
     margin: 0 !important;
+}
+
+html body .g-search td.gsc-input,
+html body .g-search td.gsc-search-button,
+html body .g-search td.gsc-clear-button {
+    padding: 0 !important;
+    margin: 0 !important;
+    vertical-align: middle !important;
 }
 
 html body .g-search .gsc-search-button-v2,
 html body .g-search.g-search-2 .gsc-search-button-v2 {
-    height: 36px !important;
+    box-sizing: border-box !important;
+    height: 38px !important;
+    width: 45px !important;
     margin: 0 !important;
-    padding: 0 12px !important;
+    padding: 0 !important;
     border-radius: 0 !important;
-    display: inline-flex !important;
+    display: flex !important;
     align-items: center !important;
     justify-content: center !important;
 }
