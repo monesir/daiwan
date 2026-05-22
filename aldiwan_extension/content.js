@@ -77,10 +77,19 @@
                                     const container = block.querySelector('.content');
                                     if (container) {
                                         h2.dataset.origHtml = container.innerHTML;
-                                        container.innerHTML = '';
-                                        for(let i = 1; i <= 5; i++) {
-                                            container.innerHTML += '<div class="col-12 col-md-3 px-2 mb-2"><a class="py-1 d-block" href="/random">' + randomPoem + ' ' + i + '</a></div>';
-                                        }
+                                        const p1 = decodeURIComponent('%D8%A3%D8%B1%D8%AB%20%D8%AC%D8%AF%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AD%D8%A8%D9%84');
+                                        const p2 = decodeURIComponent('%D9%84%D9%87%D8%A7%D9%86%20%D8%B9%D9%84%D9%8A%D9%86%D8%A7');
+                                        const p3 = decodeURIComponent('%D9%81%D9%8A%20%D8%A7%D9%84%D8%AE%D8%AF');
+                                        const p4 = decodeURIComponent('%D8%A3%D8%B1%D8%A7%D9%83%20%D8%B9%D8%B5%D9%8A%20%D8%A7%D9%84%D8%AF%D9%85%D8%B9');
+                                        const p5 = decodeURIComponent('%D8%A3%D9%84%D8%A7%20%D9%84%D9%8A%D8%AA%20%D8%B4%D8%B9%D8%B1%D9%8A');
+
+                                        container.innerHTML = `
+<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block text-truncate" href="https://www.aldiwan.net/poem24162.html">${p1}</a></div>
+<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block text-truncate" href="https://www.aldiwan.net/poem30373.html">${p2}</a></div>
+<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block text-truncate" href="https://www.aldiwan.net/poem10125.html">${p3}</a></div>
+<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block text-truncate" href="https://www.aldiwan.net/poem25258.html">${p4}</a></div>
+<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block text-truncate" href="https://www.aldiwan.net/poem80856.html">${p5}</a></div>
+                                        `;
                                     }
                                 }
                             }
