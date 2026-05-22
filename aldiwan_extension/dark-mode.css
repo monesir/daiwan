@@ -142,12 +142,22 @@ nav a:hover, .footer a:hover, footer a:hover {
 
 html body .m-section-1 .mosahmat_block_top,
 html body .mosahmat_block_top {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    gap: 15px !important;
 }
-html body .m-section-1 .mosahmat_block_top > div,
-html body .mosahmat_block_top > div {
+
+html body .m-section-1 .mosahmat_block_top > *,
+html body .mosahmat_block_top > * {
     margin-top: 0 !important;
-    margin-bottom: 20px !important;
+    margin-bottom: 0 !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+    position: static !important;
+    top: auto !important;
+    bottom: auto !important;
+    transform: none !important;
 }
 
 /* --- 7. Nav, Footer, Alphabet bar (.m-section-2) --- */
