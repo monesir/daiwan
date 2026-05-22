@@ -380,7 +380,7 @@
         const headers = document.querySelectorAll('header, nav.fixed-top');
         
         headers.forEach(header => {
-            if (header.querySelector('.theme-dropdown-container')) return;
+            if (header.querySelector('.theme-dropdown-container:not(.settings-dropdown-container)')) return;
 
             const registerBtn = header.querySelector('a[href*="/register"]');
             if (!registerBtn) return;
