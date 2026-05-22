@@ -48,7 +48,7 @@
                         
                         let h3 = el.querySelector('h3');
                         if (h3) {
-                            h3.textContent = 'اللهم صل وبارك على النبي وآله';
+                            h3.textContent = 'اللَّهُمَّ صَلِّ وسلم وبارك عَلَى محمد وَعَلَى آلِ محمد كَمَا صَلَّيْتَ وباركت عَلَى إِبْرَاهِيمَ وعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ';
                             h3.style.justifyContent = 'center'; // Center the text beautifully
                             h3.style.width = '100%';
                         }
