@@ -147,7 +147,9 @@ nav a:hover, .footer a:hover, footer a:hover {
     gap: 20px !important;
 }
 .mosahmat_block_top > div {
+    margin-top: 0 !important;
     margin-bottom: 0 !important;
+    flex-grow: 0 !important;
 }
 
 /* --- 7. Nav, Footer, Alphabet bar (.m-section-2) --- */
