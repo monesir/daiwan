@@ -53,6 +53,15 @@
                             }
                         }
                     });
+
+                    document.querySelectorAll('h1, h2, h3, h4, h5, h6, span, div').forEach(heading => {
+                        if (heading.textContent.includes('شُعراء الذكاء الاصطناعي') || heading.textContent.includes('شعراء الذكاء الاصطناعي')) {
+                            let block = heading.closest('.s-block') || heading.closest('.card') || heading.closest('.section') || heading.closest('.mosahmat_block') || heading.parentElement;
+                            if (block && block !== document.body) {
+                                block.style.display = 'none';
+                            }
+                        }
+                    });
                 }, 1000);
             }
         } else {
