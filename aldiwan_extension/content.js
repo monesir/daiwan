@@ -410,6 +410,13 @@
             btn.style.alignItems = 'center';
             btn.style.justifyContent = 'center';
 
+            // Match height of register button exactly to prevent vertical squishing
+            setTimeout(() => {
+                if (registerBtn) {
+                    btn.style.height = window.getComputedStyle(registerBtn).height;
+                }
+            }, 100);
+
             const dropdown = document.createElement('div');
             dropdown.className = 'theme-dropdown-menu';
             
@@ -479,7 +486,7 @@
 
             const btn = document.createElement('a');
             btn.href = 'javascript:void(0)';
-            btn.innerHTML = '<i class="fas fa-cog"></i>&#8203;';
+            btn.innerHTML = '<i class="fas fa-cog"></i>';
             btn.title = 'إعدادات الإضافة';
             btn.className = registerBtn.className.replace('float-left', '').trim() + ' theme-switcher-btn';
             
@@ -488,6 +495,13 @@
             btn.style.display = 'inline-flex';
             btn.style.alignItems = 'center';
             btn.style.justifyContent = 'center';
+
+            // Match height of register button exactly to prevent vertical squishing
+            setTimeout(() => {
+                if (registerBtn) {
+                    btn.style.height = window.getComputedStyle(registerBtn).height;
+                }
+            }, 100);
 
             const settingsDropdown = document.createElement('div');
             settingsDropdown.className = 'theme-dropdown-menu';
