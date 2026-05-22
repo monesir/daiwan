@@ -160,6 +160,11 @@ html body .mosahmat_block_top > * {
     transform: none !important;
 }
 
+html body .mosahmat_block_top .google-auto-placed,
+html body .mosahmat_block_top .ads {
+    display: none !important;
+}
+
 /* --- 7. Nav, Footer, Alphabet bar (.m-section-2) --- */
 nav, .navbar, .fixed-top {
     background: var(--bg-card) !important;
