@@ -84,11 +84,11 @@
                                         const p5 = decodeURIComponent('%D8%A3%D9%84%D8%A7%20%D9%84%D9%8A%D8%AA%20%D8%B4%D8%B9%D8%B1%D9%8A%20%D9%87%D9%84%20%D8%A3%D8%A8%D9%8A%D8%AA%D9%86%20%D9%84%D9%8A%D9%84%D8%A9');
 
                                         container.innerHTML = `
-<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block" href="https://www.aldiwan.net/poem24162.html" style="white-space: normal;">${p1}</a></div>
-<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block" href="https://www.aldiwan.net/poem30373.html" style="white-space: normal;">${p2}</a></div>
-<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block" href="https://www.aldiwan.net/poem10125.html" style="white-space: normal;">${p3}</a></div>
-<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block" href="https://www.aldiwan.net/poem25258.html" style="white-space: normal;">${p4}</a></div>
-<div class="col-12 col-md px-2 mb-2"><a class="py-1 d-block" href="https://www.aldiwan.net/poem80856.html" style="white-space: normal;">${p5}</a></div>
+<div class="col-12 col-md-6 col-lg-4 px-2 mb-3"><a class="py-2 d-block" href="https://www.aldiwan.net/poem24162.html" style="white-space: normal;">${p1}</a></div>
+<div class="col-12 col-md-6 col-lg-4 px-2 mb-3"><a class="py-2 d-block" href="https://www.aldiwan.net/poem30373.html" style="white-space: normal;">${p2}</a></div>
+<div class="col-12 col-md-6 col-lg-4 px-2 mb-3"><a class="py-2 d-block" href="https://www.aldiwan.net/poem10125.html" style="white-space: normal;">${p3}</a></div>
+<div class="col-12 col-md-6 px-2 mb-3"><a class="py-2 d-block" href="https://www.aldiwan.net/poem25258.html" style="white-space: normal;">${p4}</a></div>
+<div class="col-12 col-md-6 px-2 mb-3"><a class="py-2 d-block" href="https://www.aldiwan.net/poem80856.html" style="white-space: normal;">${p5}</a></div>
                                         `;
                                     }
                                 }
