@@ -295,45 +295,36 @@ html body header.home-header .col-7.col-md-8 {
 }
 
 /* --- 12. Search bar --- */
-html body .g-search .gsc-control-searchbox-only .gsc-input,
-html body .g-search .gsc-control-searchbox-only .gsc-input-box,
-html body .g-search .gsc-control-searchbox-only .gsc-search-button,
-html body .g-search.g-search-2 .gsc-control-searchbox-only .gsc-input,
-html body .g-search.g-search-2 .gsc-control-searchbox-only .gsc-input-box,
-html body .g-search.g-search-2 .gsc-control-searchbox-only .gsc-search-button {
+html body .gsc-control-searchbox-only .gsc-input,
+html body .gsc-control-searchbox-only .gsc-input-box,
+html body .gsc-control-searchbox-only .gsc-search-button,
+html body .gsc-control-searchbox-only .gsc-input,
+html body .gsc-control-searchbox-only .gsc-input-box {
     background: var(--bg-card) !important;
     color: var(--text-main) !important;
 }
 
-html body .g-search .gsc-control-searchbox-only .gsc-search-button:hover,
-html body .g-search.g-search-2 .gsc-control-searchbox-only .gsc-search-button:hover {
+html body .gsc-control-searchbox-only .gsc-search-button:hover {
     background: var(--bg-hover) !important;
 }
 
-html body .g-search .gsc-search-button-v2 svg,
-html body .g-search.g-search-2 .gsc-search-button-v2 svg {
-    fill: var(--text-main) !important;
-    width: 16px !important;
-    height: 16px !important;
-    margin: 0 !important;
+html body .gsc-search-button-v2 svg {
     display: block !important;
 }
 
-html body .g-search .gsc-control-searchbox-only input.gsc-input,
-html body .g-search.g-search-2 .gsc-control-searchbox-only input.gsc-input {
+html body .gsc-control-searchbox-only input.gsc-input {
     background: var(--bg-card) !important;
+    background-image: none !important;
     color: var(--text-main) !important;
     height: 38px !important;
     margin: 0 !important;
 }
 
-html body .g-search .gsc-control-searchbox-only input.gsc-input::placeholder,
-html body .g-search.g-search-2 .gsc-control-searchbox-only input.gsc-input::placeholder {
+html body .gsc-control-searchbox-only input.gsc-input::placeholder {
     color: var(--text-muted) !important;
 }
 
-html body .g-search .gsc-control-searchbox-only,
-html body .g-search.g-search-2 .gsc-control-searchbox-only {
+html body .gsc-control-searchbox-only {
     background: transparent !important;
     border: 1px solid var(--border-main) !important;
     border-radius: 4px !important;
@@ -342,38 +333,55 @@ html body .g-search.g-search-2 .gsc-control-searchbox-only {
     overflow: hidden !important;
 }
 
-html body .g-search form.gsc-search-box,
-html body .g-search table.gsc-search-box {
+html body form.gsc-search-box,
+html body table.gsc-search-box {
     background: transparent !important;
     margin: 0 !important;
     height: 36px !important;
 }
 
-html body .g-search .gsc-input-box {
+html body .gsc-input-box {
     border: none !important;
     height: 38px !important;
     margin: 0 !important;
+    background: transparent !important;
 }
 
-html body .g-search td.gsc-input,
-html body .g-search td.gsc-search-button,
-html body .g-search td.gsc-clear-button {
+html body td.gsc-input,
+html body td.gsc-search-button,
+html body td.gsc-clear-button {
     padding: 0 !important;
     margin: 0 !important;
     vertical-align: middle !important;
+    text-align: center !important;
+    border: none !important;
+    background: transparent !important;
 }
 
-html body .g-search .gsc-search-button-v2,
-html body .g-search.g-search-2 .gsc-search-button-v2 {
-    box-sizing: border-box !important;
-    height: 38px !important;
+html body td.gsc-search-button {
     width: 45px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
+}
+
+html body form.gsc-search-box table.gsc-search-box td.gsc-search-button button.gsc-search-button-v2 {
+    all: unset !important;
+    box-sizing: border-box !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: pointer !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    border: none !important;
+}
+
+html body form.gsc-search-box table.gsc-search-box td.gsc-search-button button.gsc-search-button-v2 svg {
+    all: unset !important;
+    fill: var(--text-main) !important;
+    width: 18px !important;
+    height: 18px !important;
+    display: block !important;
 }
 
 /* Google Custom Search Autocomplete Dropdown */
