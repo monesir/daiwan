@@ -4,6 +4,3 @@ __pycache__/
 env/
 test_*.py
 test_output.txt
-wget.exe
-www.aldiwan.net/
-*.html
