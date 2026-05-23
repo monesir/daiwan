@@ -422,7 +422,6 @@
             
             const themes = [
                 { id: 'dark', name: 'الافتراضي', color: '#0d1117' },
-                { id: 'navy', name: 'أزرق ليلي', color: '#0a1128' },
                 { id: 'sepia', name: 'قهوة دافئة', color: '#2c2520' },
                 { id: 'gold', name: 'ذهبي وأسود', color: '#ffd700' },
                 { id: 'black', name: 'أسود', color: '#000000' }
