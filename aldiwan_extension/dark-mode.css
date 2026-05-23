@@ -773,6 +773,21 @@ html body.login-page .image-half {
     --accent-hover: #ffea00;
 }
 
+/* 6. OLED Black */
+[data-theme="black"] {
+    --bg-main: #000000;
+    --bg-card: #0d0d0d;
+    --bg-hover: #1a1a1a;
+    --border-main: #333333;
+    --text-main: #ffffff;
+    --text-muted: #aaaaaa;
+    --text-heading: #ffffff;
+    --accent-main: #ffffff;
+    --accent-hover: #cccccc;
+    
+    --brand-grad: linear-gradient(0deg, #0d0d0d, #0d0d0d) !important;
+    --brand-grad-hover: linear-gradient(0deg, #1a1a1a, #1a1a1a) !important;
+}
 
 
 
